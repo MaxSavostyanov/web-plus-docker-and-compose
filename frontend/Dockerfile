@@ -21,4 +21,4 @@ COPY nginx/conf.d/default.conf /etc/nginx/conf.d/
 
 # С помощью параметера --from указываем, что копировать нужно из образа builder
 # Копируем директорию со сборкой приложения
-COPY --from=builder /app/build/* /usr/share/nginx/html/
+COPY --from=builder /app/build /usr/share/nginx/html/

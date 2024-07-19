@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  backend:
+    build: 
+      context: backend
+    ports:
+      - "4000:3000"
+    image: 'backend'
+    depends_on:
+      - database
+    restart: on-failure
+    healthcheck:
+      test: "wget -nv -t1 --spider 'http://localhost:3000/'"
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    env_file: .env
+  frontend:
+    build: 
+      context: frontend
+    ports:
+      - "8081:80"
+    image: "frontend"
+    restart: on-failure
+  database:
+    image: "postgres:16"
+    env_file: .env
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    restart: on-failure
+    

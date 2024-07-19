@@ -31,7 +31,8 @@ COPY --from=builder /app/package*.json ./
 RUN npm ci --omit=dev 
 
 # Копируем директорию со сборкой приложения
-COPY --from=builder /app/dist ./
+COPY --from=builder /app/dist ./dist
+COPY ecosystem.config.js ./
 
 EXPOSE 4000
 
