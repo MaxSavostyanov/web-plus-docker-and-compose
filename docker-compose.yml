@@ -1,11 +1,12 @@
 version: "3.9"
+
 services:
   backend:
-    build: 
-      context: backend
+    build: backend
     ports:
       - "4000:3000"
     image: 'backend'
+    container_name: 'backend'
     depends_on:
       - database
     restart: on-failure
@@ -16,17 +17,26 @@ services:
       retries: 3
       start_period: 40s
     env_file: .env
+    networks:
+      - backend
+
   frontend:
-    build: 
-      context: frontend
+    build: frontend
     ports:
       - "8081:80"
     image: "frontend"
+    container_name: 'frontend'
     restart: on-failure
+
   database:
     image: "postgres:16"
+    container_name: 'database'
     env_file: .env
     volumes:
       - ./pg-data:/var/lib/postgresql/data
     restart: on-failure
-    
+    networks:
+      - backend
+      
+networks:
+  backend:
