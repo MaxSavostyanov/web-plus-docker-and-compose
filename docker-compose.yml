@@ -1,42 +1,46 @@
 version: "3.9"
-
 services:
   backend:
-    build: backend
+    container_name: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    image: backend
+    restart: unless-stopped
     ports:
-      - "4000:3000"
-    image: 'backend'
-    container_name: 'backend'
+      - 4000:3000
+    env_file:
+      - .env
     depends_on:
-      - database
-    restart: on-failure
-    healthcheck:
-      test: "wget -nv -t1 --spider 'http://localhost:3000/'"
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    env_file: .env
+      - postgres
     networks:
       - backend
 
   frontend:
-    build: frontend
+    container_name: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    image: frontend
     ports:
-      - "8081:80"
-    image: "frontend"
-    container_name: 'frontend'
-    restart: on-failure
+      - 8081:80
+    networks:
+      - frontend
 
-  database:
-    image: "postgres:16"
-    container_name: 'database'
-    env_file: .env
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: unless-stopped
     volumes:
-      - ./pg-data:/var/lib/postgresql/data
-    restart: on-failure
+      - postgres_data:/data/postgres
+    env_file:
+      - .env
     networks:
       - backend
-      
+
+volumes:
+  postgres_data:
+
 networks:
+  frontend:
   backend:
