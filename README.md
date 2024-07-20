@@ -1,3 +1,5 @@
 # Докеризация приложения
 
-Перед тем как приступить к выполнению проектной работы разместите в репозитории исходный код фронтенд и бэкенд частей сервиса КупиПодариДай, реализованного вами ранее. 
+### IP адрес: 51.250.25.21
+### Frontend: [https://kupipodari.nomorepartiesco.ru/](https://kupipodari.nomorepartiesco.ru/ "https://kupipodari.nomorepartiesco.ru/")
+### Backend: [https://api.kupipodari.nomorepartiesco.ru/](https://api.kupipodari.nomorepartiesco.ru/ "https://api.kupipodari.nomorepartiesco.ru/")
